@@ -1,0 +1,17 @@
+@using BlazorStandalonApp.Shared
+@inject Services.TodoItemService TodoItemService
+
+<h3>Add Todo Item</h3>
+
+<input type="text" @bind="newItem.Name" />
+<button @onclick="AddItem">Add</button>
+
+@code {
+    private TodoItem newItem = new TodoItem();
+
+    private async Task AddItem()
+    {
+        await TodoItemService.AddTodoItemAsync(newItem);
+        newItem = new TodoItem(); // Reset the form
+    }
+}
