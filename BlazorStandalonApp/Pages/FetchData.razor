@@ -1,6 +1,26 @@
-namespace BlazorStandalonApp.Pages;
+@page "/fetchdata"
+@using BlazorStandalonApp.Shared
+@inject Services.TodoItemService TodoItemService
 
-public class FetchData_razor
+<h3>Todo</h3>
+
+@if (todoItems == null)
 {
-    
+    <p><em>Loading...</em></p>
+}
+else
+{
+    foreach (var item in todoItems)
+    {
+        <p>@item.Name</p>
+    }
+}
+
+@code {
+    private List<TodoItem> todoItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todoItems = await TodoItemService.GetTodoItemsAsync();
+    }
 }
